@@ -1,0 +1,19 @@
+.playground-container{
+    display: flex;
+    flex-direction: column;
+}
+.editor-container{
+    /* min-height: 60vh; */
+    min-height: 64vh;
+
+}
+
+.editor-container{
+    display: flex;
+    /* flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+    height: 100%; */
+}

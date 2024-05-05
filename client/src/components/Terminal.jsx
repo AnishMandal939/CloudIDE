@@ -2,6 +2,7 @@ import { Terminal as XTerminal } from "@xterm/xterm";
 import { useRef } from "react";
 import { useEffect } from "react";
 import "@xterm/xterm/css/xterm.css";
+import socket from '../socket.js';
 
 export const Terminal = () => {
   const terminalRef = useRef();
@@ -23,9 +24,13 @@ export const Terminal = () => {
     // attach terminal, and provide target , which is the ref to the div
     term.open(terminalRef.current);
     term.onData((data) => {
-      term.write(data);
+    //   term.write(data);
       console.log(data);
+      socket.emit('terminal:write', data);
     });
+    socket.on('terminal:data',(data) => {
+      term.write(data);
+    })
     // eslint-disable-next-line
   }, []);
   return <div id="terminal" ref={terminalRef}></div>;

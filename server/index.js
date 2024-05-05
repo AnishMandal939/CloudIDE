@@ -9,6 +9,12 @@ const path = require("path");
 
 const pty = require("node-pty");
 
+// cors enabling for files and directories
+const cors = require("cors");
+
+// for watching files and directories changes
+const chokidar = require('chokidar');
+
 // creating terminal
 const ptyProcess = pty.spawn("bash", [], {
   name: "xterm-color",
@@ -24,7 +30,15 @@ const io = new SocketServer({
   cors: "*",
 });
 
+app.use(cors()); // enabling cors
+
 io.attach(server);
+
+// One-liner for current directory , watch all files and directories
+chokidar.watch('./user').on('all', (event, path) => {
+  // console.log(event, path);
+  io.emit('file:refresh', path)
+});
 
 // any output come from ptyProcess
 ptyProcess.onData((data) => {
@@ -34,7 +48,10 @@ ptyProcess.onData((data) => {
 io.on("connection", (socket) => {
   // console.log(`socket connected`, socket.id);
 
+  socket.emit('file:refresh'); // to refresh the file tree
+
   socket.on("terminal:write", (data) => {
+    // console.log(data);
     ptyProcess.write(data);
   });
 });

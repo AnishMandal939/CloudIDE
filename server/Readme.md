@@ -9,3 +9,10 @@
     - terminal setup is done 
         Todo: next
             creating bridge using socket.io in frontend
+
+    - enabling cors - in backend to access from front end
+        - cors is enabled in backend
+        - package install cors
+        npm i cors
+
+npm install chokidar - for watching file changes, and restarting the server

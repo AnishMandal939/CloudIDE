@@ -1,20 +1,96 @@
-.playground-container{
-    display: flex;
-    flex-direction: column;
+.playground-container {
+  display: flex;
+  flex-direction: column;
 }
-.editor-container{
-    /* min-height: 60vh; */
-    min-height: 64vh;
-    display: flex;
+.editor-container {
+  /* min-height: 60vh; */
+  min-height: 64vh;
+  display: flex;
+}
+li {
+  list-style: none;
+  line-height: 24px;
+}
+.files {
+  padding: 20px;
+  /*
+  overflow: auto;
+  box-sizing: content-box;
+  border-width: 3px;
+ */
+  border-style: solid;
+  border-image: linear-gradient(to bottom, red, rgba(0, 0, 0, 0)) 1 100%;
+  --borderWidth: 3px;
+  background: #1d1f20;
+  border-radius: var(--borderWidth);
+  color: white;
+  width: 10vw;
+}
+
+.file-node {
+  cursor: pointer;
+}
+.ace_editor {
+  width: 89vw !important;
+}
+.list {
+  display: flex;
+}
+#terminal {
+  /* width: 100%; */
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid white;
+  box-sizing: content-box;
+  border-width: 8px;
+  border-style: solid;
+  border-image: linear-gradient(to right bottom, #260b3c, #a053df);
+  border-image-slice: 1;
+}
+
+.selected-file-bg {
+  color: white;
+  font-family: cursive;
+  letter-spacing: 4px;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+.restart-server-button{
+    background: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;    
+}
+button:disabled{
+    background: #cccccc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: not-allowed;
 
 }
-li{
-    list-style: none;
-    line-height: 24px;
+/* remove scrollbar width height */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
 }
-.files{
-    padding: 20px;
+/* remove scrollbar track */
+::-webkit-scrollbar-track {
+  background: transparent;
 }
-.file-node{
-    cursor: pointer;
+
+/* remove scrollbar handle */
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* remove scrollbar corner */
+::-webkit-scrollbar-corner {
+  background: transparent;
 }

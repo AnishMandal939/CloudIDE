@@ -1,7 +1,6 @@
 import { PropTypes } from "prop-types";
 // creating function which will be called recursively
 const FileTreeNode = ({ fileName, nodes, onSelect, path }) => {
-  //   console.log(nodes, "nodesa");
   //   to check if current node is file or directory
   const isDir = !!nodes;
   return (
@@ -11,24 +10,23 @@ const FileTreeNode = ({ fileName, nodes, onSelect, path }) => {
         if (isDir) return; // if it is not directory then return, because we don't want to emit event
         onSelect(path); // emit event
       }}
-      style={{ marginLeft: "10px" }}
+      style={{ marginLeft: "2px", display: "flex", gap: "5px"}}
     >
+        {isDir ? <span>📂</span> : <span>📄</span>}
       <p className={isDir ? "" : "file-node"}>{fileName}</p>
       {/* if have nodes */}
-      {nodes && (
+      {nodes && fileName !== "node_modules" && (
         <ul>
-          {Object.keys(nodes).map((child) => {
-            return (
-              <li key={child}>
-                <FileTreeNode
-                  fileName={child}
-                  nodes={nodes[child]}
-                  path={path + "/" + child}
-                  onSelect={onSelect}
-                />
-              </li>
-            );
-          })}
+          {Object.keys(nodes).map((child) => (
+            <li key={child} className="list">
+              <FileTreeNode
+                fileName={child}
+                nodes={nodes[child]}
+                path={path + "/" + child}
+                onSelect={onSelect}
+              />
+            </li>
+          ))}
         </ul>
       )}
     </div>

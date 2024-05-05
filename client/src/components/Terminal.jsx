@@ -25,12 +25,21 @@ export const Terminal = () => {
     term.open(terminalRef.current);
     term.onData((data) => {
     //   term.write(data);
-      console.log(data);
+      // console.log(data);
       socket.emit('terminal:write', data);
     });
-    socket.on('terminal:data',(data) => {
+
+    // 
+    function onTerminalData(data){
       term.write(data);
-    })
+    }
+
+    socket.on('terminal:data',onTerminalData)
+
+    // cleanup
+    // return () => {
+    //   socket.off('terminal:data',onTerminalData)
+    // };
     // eslint-disable-next-line
   }, []);
   return <div id="terminal" ref={terminalRef}></div>;

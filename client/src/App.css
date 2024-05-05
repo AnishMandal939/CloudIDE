@@ -5,15 +5,13 @@
 .editor-container{
     /* min-height: 60vh; */
     min-height: 64vh;
+    display: flex;
 
 }
-
-.editor-container{
-    display: flex;
-    /* flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    width: 80%;
-    height: 100%; */
+li{
+    list-style: none;
+    line-height: 24px;
+}
+.file-node{
+    cursor: pointer;
 }

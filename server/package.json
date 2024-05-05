@@ -1,0 +1,20 @@
+{
+  "name": "server.js",
+  "version": "1.0.0",
+  "description": "cloud based IDE like Repl.it",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "author": "Anish Mandal",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-pty": "^1.0.0",
+    "nodemon": "^3.1.0",
+    "socket.io": "^4.7.5"
+  }
+}

@@ -16,3 +16,11 @@
         npm i cors
 
 npm install chokidar - for watching file changes, and restarting the server
+
+# creating bridge for aceEditor with file system
+- npm i react-ace - for ace editor : install in client
+- npm i socket.io-client - for socket.io client : install in client
+    #tasks:
+        detect which file is opened in ace editor and send it to server
+            - onClick open file in ace editor
+        server should send the content of the file to client

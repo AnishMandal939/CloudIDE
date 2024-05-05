@@ -4,16 +4,22 @@ import { useState } from "react";
 import { useEffect } from "react";
 import FileTree from "./components/Tree";
 import socket from "./socket";
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/src-noconflict/ext-beautify";
 
 function App() {
-  // state 
+  // state
   const [fileTree, setFileTree] = useState({});
+  const [selectedFile, setSelectedFile] = useState("");
 
-  const getFileTree = async() => {
-    const response = await fetch("http://localhost:9000/files")
-    const result = await response.json()
-    setFileTree(result.tree)
-  }
+  const getFileTree = async () => {
+    const response = await fetch("http://localhost:9000/files");
+    const result = await response.json();
+    setFileTree(result.tree);
+  };
 
   // when component mounts, loads the file tree, so that we can see the files and directories
   // useEffect(() => {
@@ -26,15 +32,21 @@ function App() {
     // cleanup
     return () => {
       socket.off("file:refresh", getFileTree);
-    }
-  }, [])
+    };
+  }, []);
   return (
     <div className="playground-container">
       <div className="editor-container">
         <div className="files">
-          <FileTree tree={fileTree} />
+          <FileTree
+            tree={fileTree}
+            onSelect={(path) => setSelectedFile(path)}
+          />
         </div>
-        <div className="editor"></div>
+        <div className="editor">
+          {selectedFile && <p>{selectedFile.replaceAll('/', ' > ')}</p>}
+          <AceEditor />
+        </div>
       </div>
       <div className="terminal-container">
         <Terminal />

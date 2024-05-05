@@ -1,11 +1,18 @@
 import { PropTypes } from "prop-types";
 // creating function which will be called recursively
-const FileTreeNode = ({ fileName, nodes }) => {
+const FileTreeNode = ({ fileName, nodes, onSelect, path }) => {
   //   console.log(nodes, "nodesa");
   //   to check if current node is file or directory
   const isDir = !!nodes;
   return (
-    <div style={{ marginLeft: "10px" }}>
+    <div
+      onClick={(e) => {
+        e.stopPropagation(); // to stop event bubbling
+        if (isDir) return; // if it is not directory then return, because we don't want to emit event
+        onSelect(path); // emit event
+      }}
+      style={{ marginLeft: "10px" }}
+    >
       <p className={isDir ? "" : "file-node"}>{fileName}</p>
       {/* if have nodes */}
       {nodes && (
@@ -13,7 +20,12 @@ const FileTreeNode = ({ fileName, nodes }) => {
           {Object.keys(nodes).map((child) => {
             return (
               <li key={child}>
-                <FileTreeNode fileName={child} nodes={nodes[child]} />
+                <FileTreeNode
+                  fileName={child}
+                  nodes={nodes[child]}
+                  path={path + "/" + child}
+                  onSelect={onSelect}
+                />
               </li>
             );
           })}
@@ -24,9 +36,9 @@ const FileTreeNode = ({ fileName, nodes }) => {
 };
 
 // tree - will come from backend
-const FileTree = ({ tree }) => {
+const FileTree = ({ tree, onSelect }) => {
   //   console.log(tree,"tree");
-  return <FileTreeNode fileName="/" nodes={tree} />;
+  return <FileTreeNode fileName="/" nodes={tree} path="" onSelect={onSelect} />;
 };
 
 export default FileTree;
@@ -35,8 +47,11 @@ export default FileTree;
 FileTreeNode.propTypes = {
   fileName: PropTypes.string.isRequired,
   nodes: PropTypes.object,
+  onSelect: PropTypes.func.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 FileTree.propTypes = {
   tree: PropTypes.object.isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
